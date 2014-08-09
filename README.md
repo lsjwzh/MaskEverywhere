@@ -4,7 +4,6 @@ LoadingEverywhere is an Android library that makes it easy to create and manage 
 
 LoadingEverywhere actively supports android versions 2.3 (gingerbread) and above.
 
-
 Installing
 ---------------
 ###Maven
