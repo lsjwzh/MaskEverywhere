@@ -5,7 +5,7 @@
     <groupId>com.lsjwzh</groupId>
     <artifactId>LoadingEverywhere</artifactId>
     <version>1.1.0-RELEASE</version>
-    <packaging>apk</packaging>
+    <packaging>aar</packaging>
     <name>LoadingEverywhere</name>
 
     <properties>
