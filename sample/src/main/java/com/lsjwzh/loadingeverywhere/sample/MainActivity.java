@@ -54,7 +54,7 @@ public class MainActivity extends ActionBarActivity {
                     super.onPostExecute(aVoid);
                     mLoadingLayout.hideLoading();
                 }
-            };
+            }.execute();
             return true;
         }
         return super.onOptionsItemSelected(item);
