@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
  * Layout with a loading mask.
  * Created by lsjwzh on 14-8-9.
  */
-public class LoadingLayout extends FrameLayout {
+public class LoadingLayout extends OverlayLayout {
 
     /**
      * create a LoadingLayout to wrap and replace the targetView.
@@ -33,12 +33,6 @@ public class LoadingLayout extends FrameLayout {
         return loadingLayout;
     }
 
-
-    protected View mLoadingMask;
-    protected View mTargetView;
-    protected boolean mIsHideTargetViewWhenLoading = true;
-
-
     public LoadingLayout(Context context) {
         super(context);
     }
@@ -50,81 +44,34 @@ public class LoadingLayout extends FrameLayout {
     public LoadingLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
-    /**
-     * use LoadingLayout itself to wrap and replace the targetView.
-     * Note: if you attachTo targetView on 'onCreate' method,targetView may be not layout complete.
-     *
-     * @param targetView
-     * @return
-     */
-    public void attachTo(final View targetView){
-        if(targetView==null){
-            throw new IllegalArgumentException();
-        }
-        mTargetView = targetView;
 
-        ViewGroup.LayoutParams layoutParams = targetView.getLayoutParams();
-        this.setLayoutParams(layoutParams);
-        if(targetView.getParent()!=null&&targetView.getParent() instanceof ViewGroup){
-            ViewGroup targetViewParent = (ViewGroup) targetView.getParent();
-            int targetViewPosInParent = targetViewParent.indexOfChild(targetView);
-            targetViewParent.removeView(targetView);
-            targetViewParent.addView(this,targetViewPosInParent);
-            this.addView(targetView);
-        }else {
-            ViewUtil.addGlobalLayoutListenerOnce(targetView,new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    if(targetView.getParent()==null){
-                        return;
-                    }
-                    ViewGroup targetViewParent = (ViewGroup) targetView.getParent();
-                    int targetViewPosInParent = targetViewParent.indexOfChild(targetView);
-                    targetViewParent.removeView(targetView);
-                    targetViewParent.addView(LoadingLayout.this,targetViewPosInParent);
-                    LoadingLayout.this.addView(targetView);
-                }
-            });
-        }
-    }
 
     public void showLoading(){
-        if(mLoadingMask==null){
-            mLoadingMask = createLoadingMask();
-            addView(mLoadingMask);
-        }
-        mLoadingMask.setVisibility(VISIBLE);
-        if(mIsHideTargetViewWhenLoading&&mTargetView!=null){
-            mTargetView.setVisibility(GONE);
-        }
+        showOverlay();
     }
 
     public void hideLoading(){
-        if(mLoadingMask!=null){
-            mLoadingMask.setVisibility(GONE);
-        }
-        if(mIsHideTargetViewWhenLoading&&mTargetView!=null){
-            mTargetView.setVisibility(VISIBLE);
-        }
+        hideOverlay();
     }
 
     public void setIsHideTargetViewWhenLoading(boolean isHideTargetViewWhenLoading){
-        mIsHideTargetViewWhenLoading = isHideTargetViewWhenLoading;
+        setIsHideTargetViewWhenOverlayShown(isHideTargetViewWhenLoading);
     }
 
     public boolean isLoadingMaskShown(){
-        return mLoadingMask!=null&&mLoadingMask.getVisibility()==VISIBLE;
+        return isOverlayShown();
     }
 
     public View getLoadingMask(){
-        return mLoadingMask;
+        return super.mOverlay;
     }
 
     /**
      * create loading mask
      * @return
      */
-    protected View createLoadingMask(){
+    @Override
+    View createOverlayView() {
         LinearLayout ll = new LinearLayout(getContext());
         ll.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT));
         ll.setGravity(Gravity.CENTER);
