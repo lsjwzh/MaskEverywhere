@@ -1,17 +1,28 @@
 package com.lsjwzh.loadingeverywhere.sample;
 
+import android.os.AsyncTask;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.lsjwzh.loadingeverywhere.LoadingLayout;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    LoadingLayout mLoadingLayout;
+    TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        textView = (TextView)findViewById(R.id.textView);
+        mLoadingLayout = LoadingLayout.wrap(textView);
+
+
     }
 
 
@@ -29,6 +40,21 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            mLoadingLayout.showLoading();
+            new AsyncTask<Void,Void,Void>(){
+
+                @Override
+                protected Void doInBackground(Void... params) {
+                    SystemClock.sleep(3000);
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    mLoadingLayout.hideLoading();
+                }
+            };
             return true;
         }
         return super.onOptionsItemSelected(item);
