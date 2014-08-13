@@ -49,7 +49,7 @@ Ok lets start with your activities or fragments xml file. It might look somethin
     android:layout_height="match_parent"/>
 ```
 
-Now in your activities `onCreate()` or your fragments `onCreateView()` you would want to do something like this
+Also in your activities `onCreate()` or your fragments `onCreateView()` you would want to wrap a LoadingLayout like this
 ```java
 LoadingLayout loadingLayout = LoadingLayout.wrap(findViewById(R.id.list));
 ```
