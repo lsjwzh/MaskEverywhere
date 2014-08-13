@@ -51,8 +51,10 @@ Ok lets start with your activities or fragments xml file. It might look somethin
 
 Now in your activities `onCreate()` or your fragments `onCreateView()` you would want to do something like this
 ```java
-LoadingLayout loadingLayout = LoadingLayout.attachTo(findViewById(R.id.list));
+LoadingLayout loadingLayout = LoadingLayout.wrap(findViewById(R.id.list));
 ```
+`LoadingLayout.wrap` method can be called any where.
+Because LoadingLayout will replace the view's position until the view has been attach to view tree.
 
 
 Contributing
