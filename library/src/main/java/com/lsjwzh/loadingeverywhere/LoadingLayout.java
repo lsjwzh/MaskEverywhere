@@ -24,11 +24,26 @@ public class LoadingLayout extends OverlayLayout {
      * @return
      */
     public static LoadingLayout wrap(final View targetView){
+         return wrap(targetView,android.R.attr.progressBarStyleLarge);
+    }
+    /**
+     * create a LoadingLayout to wrap and replace the targetView.
+     * Note: if you attachTo targetView on 'onCreate' method,targetView may be not layout complete.
+     *
+     * @param targetView
+     * @return
+     */
+    public static LoadingLayout wrap(final View targetView, final int defStyle){
         if(targetView==null){
             throw new IllegalArgumentException();
         }
 
-        final LoadingLayout loadingLayout = new LoadingLayout(targetView.getContext());
+        final LoadingLayout loadingLayout = new LoadingLayout(targetView.getContext()){
+            @Override
+            protected View createProgressBar() {
+                return new ProgressBar(getContext(),null,defStyle);
+            }
+        };
         loadingLayout.attachTo(targetView);
         return loadingLayout;
     }
