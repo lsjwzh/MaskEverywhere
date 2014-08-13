@@ -28,6 +28,27 @@ public class ProgressLayout extends LoadingLayout {
         progressLayout.attachTo(targetView);
         return progressLayout;
     }
+    public static ProgressLayout wrap(final View targetView, final int defStyle){
+        if(targetView==null){
+            throw new IllegalArgumentException();
+        }
+
+        final ProgressLayout progressLayout = new ProgressLayout(targetView.getContext()){
+            @Override
+            protected View createProgressBar() {
+                mProgressBar = new ProgressBar(getContext(), null, defStyle);
+                if(mProgress>=0){
+                    mProgressBar.setProgress(mProgress);
+                }
+                if(mMax>=0){
+                    mProgressBar.setMax(mMax);
+                }
+                return mProgressBar;
+            }
+        };
+        progressLayout.attachTo(targetView);
+        return progressLayout;
+    }
     protected ProgressBar mProgressBar;
     protected int mProgress = -1;
     protected int mMax = -1;
