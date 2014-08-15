@@ -24,6 +24,8 @@ dependencies {
 }
 ```
 
+####Note that the latest release version is '1.1.1'
+
 ###Cloning
 First of all you will have to clone the library.
 ```shell
@@ -58,7 +60,28 @@ LoadingLayout loadingLayout = LoadingLayout.wrap(findViewById(R.id.list));
 `LoadingLayout.wrap` method can be called any where.
 Because LoadingLayout will replace the view's position until the view has been attach to view tree.
 
+You can also use custom progressBar style in LoadingLayout like this:
+```java
+LoadingLayout loadingLayout = LoadingLayout.wrap(findViewById(R.id.list),android.R.attr.progressBarStyleLarge);
+```
+
 ####ProgressLayout
+ProgressLayout has the same usage as LoadingLayout above.
+Xml Define:
+```xml
+<com.lsjwzh.loadingeverywhere.ProgressLayout
+    android:id="@+id/progress"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+```
+code:
+```java
+ProgressLayout progressLayout = ProgressLayout.wrap(findViewById(R.id.list));
+```
+
+```java
+ProgressLayout progressLayout = ProgressLayout.wrap(findViewById(R.id.list),android.R.attr.progressBarStyleLarge);
+```
 
 ####MaskLayout
 
