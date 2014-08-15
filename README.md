@@ -41,6 +41,8 @@ Getting Started
 ---------------
 ###Base usage
 
+####LoadingLayout
+
 Ok lets start with your activities or fragments xml file. It might look something like this.
 ```xml
 <com.lsjwzh.loadingeverywhere.LoadingLayout
@@ -55,6 +57,18 @@ LoadingLayout loadingLayout = LoadingLayout.wrap(findViewById(R.id.list));
 ```
 `LoadingLayout.wrap` method can be called any where.
 Because LoadingLayout will replace the view's position until the view has been attach to view tree.
+
+####ProgressLayout
+
+####MaskLayout
+
+####OverlayLayout
+
+
+ToDo List
+---------
+1. animation support
+2. add more progressBar Style
 
 
 Contributing
