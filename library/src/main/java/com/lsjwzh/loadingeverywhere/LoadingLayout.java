@@ -1,11 +1,11 @@
 package com.lsjwzh.loadingeverywhere;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -33,7 +33,7 @@ public class LoadingLayout extends OverlayLayout {
      * @param targetView
      * @return
      */
-    public static LoadingLayout wrap(final View targetView, final int defStyle){
+    public static LoadingLayout wrap(final View targetView, final int progressBarStyle){
         if(targetView==null){
             throw new IllegalArgumentException();
         }
@@ -41,12 +41,17 @@ public class LoadingLayout extends OverlayLayout {
         final LoadingLayout loadingLayout = new LoadingLayout(targetView.getContext()){
             @Override
             protected View createProgressBar() {
-                return new ProgressBar(getContext(),null,defStyle);
+                return new ProgressBar(getContext(),null,progressBarStyle);
             }
         };
         loadingLayout.attachTo(targetView);
         return loadingLayout;
     }
+
+    /**
+     * reference to progressBarStyle
+     */
+    protected int mProgressBarStyle;
 
     public LoadingLayout(Context context) {
         super(context);
@@ -58,6 +63,12 @@ public class LoadingLayout extends OverlayLayout {
 
     public LoadingLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LoadingLayout,
+                defStyle, 0);
+
+        mProgressBarStyle = a.getInt(
+                R.styleable.LoadingLayout_leeProgressBarStyle, android.R.attr.progressBarStyleLarge);
+        a.recycle();
     }
 
 
@@ -96,6 +107,6 @@ public class LoadingLayout extends OverlayLayout {
     }
 
     protected View createProgressBar() {
-        return new ProgressBar(getContext(),null,android.R.attr.progressBarStyleLarge);
+        return new ProgressBar(getContext(),null,mProgressBarStyle);
     }
 }

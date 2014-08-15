@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="LoadingLayout">
+        <!-- A drawable to use as the background of the Refreshable View -->
+        <attr name="leeProgressBarStyle" format="reference" />
+    </declare-styleable>
+
+</resources>

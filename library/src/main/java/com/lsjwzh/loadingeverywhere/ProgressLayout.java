@@ -28,7 +28,7 @@ public class ProgressLayout extends LoadingLayout {
         progressLayout.attachTo(targetView);
         return progressLayout;
     }
-    public static ProgressLayout wrap(final View targetView, final int defStyle){
+    public static ProgressLayout wrap(final View targetView, final int progressBarStyle){
         if(targetView==null){
             throw new IllegalArgumentException();
         }
@@ -36,7 +36,7 @@ public class ProgressLayout extends LoadingLayout {
         final ProgressLayout progressLayout = new ProgressLayout(targetView.getContext()){
             @Override
             protected View createProgressBar() {
-                mProgressBar = new ProgressBar(getContext(), null, defStyle);
+                mProgressBar = new ProgressBar(getContext(), null, progressBarStyle);
                 if(mProgress>=0){
                     mProgressBar.setProgress(mProgress);
                 }
