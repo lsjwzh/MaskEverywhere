@@ -103,5 +103,5 @@ public abstract class OverlayLayout extends FrameLayout {
      * create overlay mask
      * @return
      */
-    abstract View createOverlayView();
+    public abstract View createOverlayView();
 }
