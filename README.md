@@ -90,8 +90,9 @@ ProgressLayout progressLayout = ProgressLayout.wrap(findViewById(R.id.list),andr
 
 ToDo List
 ---------
+1. GenericStatusLayout
 1. animation support
-2. add more progressBar Style
+1. add more progressBar Style
 
 
 Contributing

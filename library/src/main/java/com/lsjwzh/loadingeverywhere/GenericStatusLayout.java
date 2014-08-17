@@ -45,13 +45,4 @@ public class GenericStatusLayout extends MultiOverlayLayout {
 
     }
 
-    void ensureLayers(){
-
-    }
-
-
-    @Override
-    protected View createOverlayView(int index) {
-        return null;
-    }
 }

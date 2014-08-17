@@ -2,10 +2,13 @@ package com.lsjwzh.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
+
+import java.util.LinkedList;
 
 /**
  * Layout with amount of Overlay views.
@@ -13,8 +16,9 @@ import android.widget.FrameLayout;
  */
 public abstract class MultiOverlayLayout extends FrameLayout {
 
-    protected View[] mOverlays;
+    protected SparseArray<View> mOverlays = new SparseArray<View>();
     protected View mTargetView;
+    protected MultiOverlayAdapter mMultiOverlayAdapter;
 
     public MultiOverlayLayout(Context context) {
         super(context);
@@ -65,16 +69,28 @@ public abstract class MultiOverlayLayout extends FrameLayout {
         }
     }
 
+    public void setAdapter(MultiOverlayAdapter multiOverlayAdapter){
+        this.mMultiOverlayAdapter = multiOverlayAdapter;
+        checkAdapter();
+        for (int i = 0; i < multiOverlayAdapter.getCount(); i++) {
+            mOverlays.put(i,mMultiOverlayAdapter.getView(i,mTargetView));
+            mOverlays.get(i).setVisibility(GONE);
+            this.addView(mOverlays.get(i));
+        }
+    }
+
+    public MultiOverlayAdapter getAdapter(){
+        return mMultiOverlayAdapter;
+    }
+
     /**
      * show overlay at spec position
      * @param index
      */
     public void showOverlay(int index){
-        if(mOverlays.length <=index){
-            mOverlays[index] = createOverlayView(index);
-            addView(mOverlays[index]);
-        }
-        mOverlays[index].setVisibility(VISIBLE);
+        checkAdapter();
+        checkIndexBound(index);
+        mOverlays.get(index).setVisibility(VISIBLE);
     }
 
     /**
@@ -82,25 +98,31 @@ public abstract class MultiOverlayLayout extends FrameLayout {
      * @param index
      */
     public void hideOverlay(int index){
-        if(mOverlays.length > index){
-            mOverlays[index].setVisibility(GONE);
-        }
+        checkAdapter();
+        checkIndexBound(index);
+        mOverlays.get(index).setVisibility(GONE);
     }
 
     public boolean isOverlayShown(int index){
-        return mOverlays.length >index && mOverlays[index].getVisibility()==VISIBLE;
+        return mOverlays.size() >index && mOverlays.get(index).getVisibility()==VISIBLE;
     }
 
     public View getOverlayView(int index){
-        if(mOverlays.length >index){
-            return mOverlays[index];
+        if(mOverlays.size() >index){
+            return mOverlays.get(index);
         }
         return null;
     }
 
-    /**
-     * create overlay mask
-     * @return
-     */
-    protected abstract View createOverlayView(int index);
+    void checkAdapter(){
+        if(mMultiOverlayAdapter==null){
+            throw new IllegalStateException("must set adapter before");
+        }
+    }
+    void checkIndexBound(int index) {
+        if(index>=mMultiOverlayAdapter.getCount()){
+            throw new IndexOutOfBoundsException();
+        }
+    }
+
 }
