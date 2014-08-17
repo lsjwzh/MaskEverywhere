@@ -1,4 +1,4 @@
-package com.lsjwzh.loadingeverywhere;
+package com.lsjwzh.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 
 /**
  * Layout with a Overlay view.
@@ -52,16 +51,16 @@ public abstract class OverlayLayout extends FrameLayout {
             targetViewParent.addView(this,targetViewPosInParent);
             this.addView(targetView);
         }else {
-            ViewUtil.addGlobalLayoutListenerOnce(targetView,new ViewTreeObserver.OnGlobalLayoutListener() {
+            ViewUtil.addGlobalLayoutListenerOnce(targetView, new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
-                    if(targetView.getParent()==null){
+                    if (targetView.getParent() == null) {
                         return;
                     }
                     ViewGroup targetViewParent = (ViewGroup) targetView.getParent();
                     int targetViewPosInParent = targetViewParent.indexOfChild(targetView);
                     targetViewParent.removeView(targetView);
-                    targetViewParent.addView(OverlayLayout.this,targetViewPosInParent);
+                    targetViewParent.addView(OverlayLayout.this, targetViewPosInParent);
                     OverlayLayout.this.addView(targetView);
                 }
             });

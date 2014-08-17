@@ -1,4 +1,4 @@
-package com.lsjwzh.loadingeverywhere;
+package com.lsjwzh.widget;
 
 import android.annotation.TargetApi;
 import android.os.Build;

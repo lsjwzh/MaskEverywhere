@@ -2,13 +2,14 @@ package com.lsjwzh.loadingeverywhere;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+
+import com.lsjwzh.widget.OverlayLayout;
 
 /**
  * Layout with a loading mask.
