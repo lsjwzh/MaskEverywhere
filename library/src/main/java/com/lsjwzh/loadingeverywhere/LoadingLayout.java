@@ -98,7 +98,7 @@ public class LoadingLayout extends OverlayLayout {
      * @return
      */
     @Override
-    View createOverlayView() {
+    public View createOverlayView() {
         LinearLayout ll = new LinearLayout(getContext());
         ll.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT));
         ll.setGravity(Gravity.CENTER);
