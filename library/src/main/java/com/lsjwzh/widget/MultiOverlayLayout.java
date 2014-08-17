@@ -72,11 +72,6 @@ public abstract class MultiOverlayLayout extends FrameLayout {
     public void setAdapter(MultiOverlayAdapter multiOverlayAdapter){
         this.mMultiOverlayAdapter = multiOverlayAdapter;
         checkAdapter();
-        for (int i = 0; i < multiOverlayAdapter.getCount(); i++) {
-            mOverlays.put(i,mMultiOverlayAdapter.getView(i,mTargetView));
-            mOverlays.get(i).setVisibility(GONE);
-            this.addView(mOverlays.get(i));
-        }
     }
 
     public MultiOverlayAdapter getAdapter(){
@@ -90,6 +85,10 @@ public abstract class MultiOverlayLayout extends FrameLayout {
     public void showOverlay(int index){
         checkAdapter();
         checkIndexBound(index);
+        if(mOverlays.get(index)==null) {
+            mOverlays.put(index,mMultiOverlayAdapter.getView(index,mTargetView));
+            this.addView(mOverlays.get(index),index<getChildCount()?index:getChildCount());
+        }
         mOverlays.get(index).setVisibility(VISIBLE);
     }
 
@@ -100,18 +99,17 @@ public abstract class MultiOverlayLayout extends FrameLayout {
     public void hideOverlay(int index){
         checkAdapter();
         checkIndexBound(index);
-        mOverlays.get(index).setVisibility(GONE);
+        if(mOverlays.get(index)!=null) {
+            mOverlays.get(index).setVisibility(GONE);
+        }
     }
 
     public boolean isOverlayShown(int index){
-        return mOverlays.size() >index && mOverlays.get(index).getVisibility()==VISIBLE;
+        return mOverlays.get(index)!=null && mOverlays.get(index).getVisibility()==VISIBLE;
     }
 
     public View getOverlayView(int index){
-        if(mOverlays.size() >index){
-            return mOverlays.get(index);
-        }
-        return null;
+        return mOverlays.get(index);
     }
 
     void checkAdapter(){
