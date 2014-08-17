@@ -102,5 +102,5 @@ public abstract class MultiOverlayLayout extends FrameLayout {
      * create overlay mask
      * @return
      */
-    public abstract View createOverlayView(int index);
+    protected abstract View createOverlayView(int index);
 }

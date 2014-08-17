@@ -7,6 +7,7 @@ import android.view.View;
 import com.lsjwzh.widget.MultiOverlayLayout;
 
 /**
+ * Layout with three generic status : loading,error,empty
  * Created by panwenye on 14-8-17.
  */
 public class GenericStatusLayout extends MultiOverlayLayout {
@@ -22,10 +23,35 @@ public class GenericStatusLayout extends MultiOverlayLayout {
         super(context, attrs, defStyle);
     }
 
+    public void showLoading(){
+
+    }
+    public void showError(){
+
+    }
+
+    public void showEmpty(){
+
+    }
+    public void hideLoading(){
+
+    }
+
+    public void hideError(){
+
+    }
+
+    public void hideEmpty(){
+
+    }
+
+    void ensureLayers(){
+
+    }
 
 
     @Override
-    public View createOverlayView(int index) {
+    protected View createOverlayView(int index) {
         return null;
     }
 }

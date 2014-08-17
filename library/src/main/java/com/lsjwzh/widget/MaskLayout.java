@@ -56,7 +56,7 @@ public class MaskLayout extends OverlayLayout {
      * @return
      */
     @Override
-    View createOverlayView() {
+    protected View createOverlayView() {
         LinearLayout ll = new LinearLayout(getContext());
         ll.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         ll.setGravity(Gravity.CENTER);
