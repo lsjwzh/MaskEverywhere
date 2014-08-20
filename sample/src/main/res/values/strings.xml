@@ -3,6 +3,6 @@
 
     <string name="app_name">Sample</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">ShowLoading</string>
+    <string name="action_settings">Test it</string>
 
 </resources>
