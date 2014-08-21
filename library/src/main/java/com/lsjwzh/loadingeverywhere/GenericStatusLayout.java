@@ -2,6 +2,7 @@ package com.lsjwzh.loadingeverywhere;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -26,14 +27,20 @@ public class GenericStatusLayout extends MultiOverlayLayout {
 
     public GenericStatusLayout(Context context) {
         super(context);
+        setDefalutAdapter();
     }
 
     public GenericStatusLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setDefalutAdapter();
     }
 
     public GenericStatusLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        setDefalutAdapter();
+    }
+
+    private void setDefalutAdapter() {
         super.setAdapter(new MultiOverlayAdapter() {
             @Override
             public int getCount() {
@@ -49,21 +56,21 @@ public class GenericStatusLayout extends MultiOverlayLayout {
                         if(mLayerCreator!=null){
                             retView = mLayerCreator.createLoadingLayer();
                         }else {
-                            retView = inflate(getContext(), R.layout.loading, (ViewGroup) getParent());
+                            retView = LayoutInflater.from(getContext()).inflate(R.layout.loading, (ViewGroup) getParent(), false);
                         }
                         break;
                     case POSITION_EMPTY:
                         if(mLayerCreator!=null){
                             retView = mLayerCreator.createEmptyLayer();
                         }else {
-                            retView = inflate(getContext(), R.layout.empty, (ViewGroup) getParent());
+                            retView = LayoutInflater.from(getContext()).inflate(R.layout.empty, (ViewGroup) getParent(), false);
                         }
                         break;
                     case POSITION_ERROR:
                         if(mLayerCreator!=null){
                             retView = mLayerCreator.createErrorLayer();
                         }else {
-                            retView = inflate(getContext(), R.layout.error, (ViewGroup) getParent());
+                            retView = LayoutInflater.from(getContext()).inflate(R.layout.error, (ViewGroup) getParent(), false);
                         }
                         break;
                 }
