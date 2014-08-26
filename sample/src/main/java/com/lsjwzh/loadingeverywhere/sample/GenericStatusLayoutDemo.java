@@ -3,6 +3,7 @@ package com.lsjwzh.loadingeverywhere.sample;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,7 +33,10 @@ public class GenericStatusLayoutDemo extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        MenuItemCompat.setShowAsAction(menu.add(0,0,0,"loading"),MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+        MenuItemCompat.setShowAsAction(menu.add(0,1,0,"empty"),MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+        MenuItemCompat.setShowAsAction(menu.add(0,2,0,"error"),MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+
         return true;
     }
 
@@ -42,7 +46,7 @@ public class GenericStatusLayoutDemo extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == 0) {
             mGenericStatusLayout.showLoading();
             new AsyncTask<Void,Void,Void>(){
 
@@ -56,6 +60,40 @@ public class GenericStatusLayoutDemo extends ActionBarActivity {
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
                     mGenericStatusLayout.hideLoading();
+                }
+            }.execute();
+            return true;
+        }else if (id == 1) {
+            mGenericStatusLayout.showEmpty();
+            new AsyncTask<Void,Void,Void>(){
+
+                @Override
+                protected Void doInBackground(Void... params) {
+                    SystemClock.sleep(3000);
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    mGenericStatusLayout.hideEmpty();
+                }
+            }.execute();
+            return true;
+        }else if (id == 2) {
+            mGenericStatusLayout.showError();
+            new AsyncTask<Void,Void,Void>(){
+
+                @Override
+                protected Void doInBackground(Void... params) {
+                    SystemClock.sleep(3000);
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    mGenericStatusLayout.hideError();
                 }
             }.execute();
             return true;
