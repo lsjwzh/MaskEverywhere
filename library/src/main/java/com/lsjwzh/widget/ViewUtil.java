@@ -80,7 +80,7 @@ public class ViewUtil {
         view.getViewTreeObserver().removeOnGlobalLayoutListener(onGlobalLayoutListener);
     }
     static void removeOnGlobalLayoutListener16old(View view,OnGlobalLayoutListenerQueueExecutor onGlobalLayoutListener){
-        view.getViewTreeObserver().removeOnGlobalLayoutListener(onGlobalLayoutListener);
+        view.getViewTreeObserver().removeGlobalOnLayoutListener(onGlobalLayoutListener);
     }
 
     private static boolean isCachedViewTreeObserver(View view) {
