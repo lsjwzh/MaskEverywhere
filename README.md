@@ -1,4 +1,4 @@
-LoadingEverywhere
+LoadingEverywhere [![Build Status](https://travis-ci.org/lsjwzh/loadingeverywhere.png)](https://travis-ci.org/lsjwzh/loadingeverywhere)
 =================
 LoadingEverywhere is an Android library that makes it easy to create and manage a loading mask over any view. 
 
