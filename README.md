@@ -24,7 +24,7 @@ dependencies {
 }
 ```
 
-####Note that the latest release version is '1.1.1'
+####Note that the latest release version is '2.0.5'
 
 ###Cloning
 First of all you will have to clone the library.
@@ -95,6 +95,8 @@ ToDo List
 1. add more progressBar Style
 1. detail usage
 1. demo apk
+1. auto fit view‘s width and height
+1. button with loading  
 
 
 Contributing
