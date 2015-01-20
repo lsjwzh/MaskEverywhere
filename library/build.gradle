@@ -2,10 +2,9 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    buildToolsVersion "20.0.0"
 
     defaultConfig {
-        applicationId "com.lsjwzh.loadingeverywhere"
         minSdkVersion 8
         targetSdkVersion 19
         versionCode 5
@@ -13,7 +12,7 @@ android {
     }
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -24,5 +23,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:19.+'
 }
 
-apply from: 'https://raw.github.com/shamanland/gradle-mvn-push/cc18d56549cdea03f744b6fff27911569394073e/gradle-mvn-push.gradle'
+apply from: "${rootDir}/gradle-mvn-push.gradle"
 
