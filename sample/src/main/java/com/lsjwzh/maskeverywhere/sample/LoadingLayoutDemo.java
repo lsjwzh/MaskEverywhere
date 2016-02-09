@@ -1,36 +1,31 @@
-package com.lsjwzh.loadingeverywhere.sample;
+package com.lsjwzh.maskeverywhere.sample;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.lsjwzh.widget.OverlayLayout;
+import com.lsjwzh.maskeverywhere.MaskEverywhere;
 
 
-public class OverlayLayoutDemo extends ActionBarActivity {
+public class LoadingLayoutDemo extends ActionBarActivity {
 
-    OverlayLayout mOverlayLayout;
+    MaskEverywhere mTextViewLoadingMask;
     TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = (TextView)findViewById(R.id.textView);
-        mOverlayLayout = new OverlayLayout(this) {
-            @Override
-            protected View createOverlayView() {
-                TextView overlayTextView = new TextView(OverlayLayoutDemo.this);
-                overlayTextView.setText("This is a overlay textview");
-                return overlayTextView;
-            }
-        };
-        mOverlayLayout.attachTo(textView);
-
+        mTextViewLoadingMask = new MaskEverywhere(textView);
+        ProgressBar progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
+        mTextViewLoadingMask.addMaskView(progressBar);
+        progressBar.setBackgroundColor(Color.BLACK);
     }
 
 
@@ -48,7 +43,7 @@ public class OverlayLayoutDemo extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            mOverlayLayout.showOverlay();
+            mTextViewLoadingMask.showMask(0);
             new AsyncTask<Void,Void,Void>(){
 
                 @Override
@@ -60,7 +55,7 @@ public class OverlayLayoutDemo extends ActionBarActivity {
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
-                    mOverlayLayout.hideOverlay();
+                    mTextViewLoadingMask.hideMask(0);
                 }
             }.execute();
             return true;

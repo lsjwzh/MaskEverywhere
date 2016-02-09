@@ -1,32 +1,42 @@
-package com.lsjwzh.loadingeverywhere.sample;
+package com.lsjwzh.maskeverywhere.sample;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.lsjwzh.loadingeverywhere.GenericStatusLayout;
-import com.lsjwzh.widget.OverlayLayout;
+import com.lsjwzh.maskeverywhere.MaskEverywhere;
 
 
 public class GenericStatusLayoutDemo extends ActionBarActivity {
 
-    GenericStatusLayout mGenericStatusLayout;
+    public static final int MASK_LOADING = 0;
+    public static final int MASK_EMPTY = 1;
+    public static final int MASK_ERROR = 2;
+
+    MaskEverywhere mTextViewMask;
     TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = (TextView)findViewById(R.id.textView);
-        mGenericStatusLayout = new GenericStatusLayout(this);
-//        mGenericStatusLayout.setLayerCreator(new );
-        mGenericStatusLayout.attachTo(textView);
-
+        mTextViewMask = new MaskEverywhere(textView);
+        mTextViewMask.addMaskView(new ProgressBar(this));
+            TextView emptyTipsView = new TextView(this);
+        emptyTipsView.setGravity(Gravity.CENTER);
+        emptyTipsView.setText("Empty");
+        mTextViewMask.addMaskView(emptyTipsView);
+        TextView errorTipsView = new TextView(this);
+        errorTipsView.setGravity(Gravity.CENTER);
+        errorTipsView.setText("Error");
+        mTextViewMask.addMaskView(errorTipsView);
     }
 
 
@@ -47,7 +57,7 @@ public class GenericStatusLayoutDemo extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == 0) {
-            mGenericStatusLayout.showLoading();
+            mTextViewMask.showMask(MASK_LOADING);
             new AsyncTask<Void,Void,Void>(){
 
                 @Override
@@ -59,12 +69,12 @@ public class GenericStatusLayoutDemo extends ActionBarActivity {
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
-                    mGenericStatusLayout.hideLoading();
+                    mTextViewMask.hideMask(MASK_LOADING);
                 }
             }.execute();
             return true;
         }else if (id == 1) {
-            mGenericStatusLayout.showEmpty();
+            mTextViewMask.showMask(MASK_EMPTY);
             new AsyncTask<Void,Void,Void>(){
 
                 @Override
@@ -76,12 +86,12 @@ public class GenericStatusLayoutDemo extends ActionBarActivity {
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
-                    mGenericStatusLayout.hideEmpty();
+                    mTextViewMask.hideMask(MASK_EMPTY);
                 }
             }.execute();
             return true;
         }else if (id == 2) {
-            mGenericStatusLayout.showError();
+            mTextViewMask.showMask(MASK_ERROR);
             new AsyncTask<Void,Void,Void>(){
 
                 @Override
@@ -93,7 +103,7 @@ public class GenericStatusLayoutDemo extends ActionBarActivity {
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
-                    mGenericStatusLayout.hideError();
+                    mTextViewMask.hideMask(MASK_ERROR);
                 }
             }.execute();
             return true;

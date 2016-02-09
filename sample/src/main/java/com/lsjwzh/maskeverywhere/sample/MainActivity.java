@@ -1,18 +1,11 @@
-package com.lsjwzh.loadingeverywhere.sample;
+package com.lsjwzh.maskeverywhere.sample;
 
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.SystemClock;
-import android.support.v4.view.MenuCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-
-import com.lsjwzh.loadingeverywhere.LoadingLayout;
-import com.lsjwzh.widget.MaskLayout;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -31,10 +24,8 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        MenuItemCompat.setShowAsAction(menu.add(0,0,0,"LoadingLayout Demo"),MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-        MenuItemCompat.setShowAsAction(menu.add(0,1,0,"MaskLayout Demo"),MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-        MenuItemCompat.setShowAsAction(menu.add(0,2,0,"OverlayLayout Demo"),MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-        MenuItemCompat.setShowAsAction(menu.add(0,3,0,"GenericStatusLayout Demo"),MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        MenuItemCompat.setShowAsAction(menu.add(0,0,0,"LoadingMask Demo"),MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        MenuItemCompat.setShowAsAction(menu.add(0,1,0,"GenericStatusMask Demo"),MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         return true;
     }
 
@@ -49,12 +40,6 @@ public class MainActivity extends ActionBarActivity {
                 intent = new Intent(this,LoadingLayoutDemo.class);
                 break;
             case 1:
-                intent = new Intent(this,MaskLayoutDemo.class);
-                break;
-            case 2:
-                intent = new Intent(this,OverlayLayoutDemo.class);
-                break;
-            case 3:
                 intent = new Intent(this,GenericStatusLayoutDemo.class);
                 break;
         }
